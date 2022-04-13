@@ -119,7 +119,7 @@ in
         $cc -E -x "$1" - -v "''${@:2}" 2>&1 \
           | sed -e '1,/^#include <...>/d;/^[^ ]/,$d;s/^ *//' -e 's: (framework directory)::g' \
           | tr '\n' '\0' \
-          | xargs -0 realpath -ms
+          | xargs -0 realpath -ms || :
       }
       CXX_BUILTIN_INCLUDE_DIRECTORIES=($({
         include_dirs_for c
@@ -161,7 +161,6 @@ in
         -fno-omit-frame-pointer
       )
       CXX_FLAGS=(
-        -x c++
         -std=c++0x
       )
       LINK_FLAGS=(
